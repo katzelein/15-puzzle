@@ -48,12 +48,43 @@ const createRow = (x) => {
   return "<tr id='row" + x + "'>";
 }
 
+const renderFromScratch = () => {
+  const board = generateRandomBoard();
+  renderBoard(board);
+}
+
+const renderBoard = (document, board) => {
+  const boardTable = document.createElement("table")
+
+  boardTable.innerHTML = board.map((row, yIndex) => {
+    const row = document.createElement("tr")
+    row.innerBoard = row.map((cellValue, xIndex) => {
+      const cell = document.createElement("td")
+      cell.textContent = cellValue
+      cell.addEventListener((evt) => {
+        const newBoard = shiftCell(board, cellValue)
+        renderBoard(newBoard)
+      })
+      return cell;
+    })
+    return row;
+  })
+
+  document.getElementById("board").innerHTML = boardTable;
+}
+
 const createTile = (x, y) => {
-  let tile;
-  let num = assignNumber();
-  let cellType = num === (width * height) ? 'empty' : 'full';
-  tile = "<td class='" + cellType + "' id='" + x + "-" + y + "'>" + num + "</td>";
-  return tile;
+  const td = document.createElement("td")
+  const cellType = num === (width * height) ? 'empty' : 'full';
+  td.setAttribute("class", cellType)
+  td.addEventListener((evt) => {cellClick(x, y)})
+
+  // let tile;
+  // let num = assignNumber();
+  // let cellType = num === (width * height) ? 'empty' : 'full';
+  // tile = "<td class='" + cellType + "' id='" + x + "-" + y + "'>" + num + "</td>";
+  // return tile;
+
 }
 
 const assignNumber = () => {
@@ -78,6 +109,30 @@ const cellClick = (evt) => {
   let emptyText = parseInt(emptyCell[0].textContent)
   const rowIdx = 0;
   const colIdx = 2;
+}
+
+const isEmpty = (board) => board.length === 0;
+const colLength = (board) => board[0].length;
+const rowLength = (board) => board.length;
+
+const shiftCell = (board, cell) => {
+  // find max value
+  // if it's in the same row or same column, switch their values
+  if (isEmpty(board)) {
+    return [];
+  } else if (colLength(board) === 1 && rowLength(board) === 1) {
+    return board;
+  } else {
+    // getIndexOfEmptyCell(board)
+    // getIndexOfCell(board, cell)
+
+    // updateValueOfCellAtIndex(index, newValue)
+    // swapCells(board, index1, index2)
+
+    // const newFullCell = Math.max.apply(null, board[0])
+    // const newEmptyCell = cell;
+    // return [[newFullCell, newEmptyCell]]
+  }
 }
 
 //   let diff, direction;
@@ -124,4 +179,4 @@ const renderNewBoard = () => {
   })
 }
 
-buildInnerBoard();
+// buildInnerBoard();

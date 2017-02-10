@@ -46,4 +46,41 @@ describe("15 Puzzle", function() {
       expect(spyEvent).toEqual( [ { id:'0-0', text: 1 }, { id: '0-1', text: 25 } ] )
     })
   })
+
+  describe('shiftCell', () => {
+    it('returns an empty board given an empty board', () => {
+      expect(
+        shiftCell([], null)
+      ).toEqual([])
+    })
+
+    it('returns a single-cell board given a single-cell board', () => {
+      expect(
+        shiftCell([[1]], 1)
+      ).toEqual([[1]])
+    })
+
+    it('shifts a single-row board by a single cell', () => {
+      expect(
+        shiftCell([[1, 2]], 1)
+      ).toEqual([[2, 1]]);
+    })
+
+    it('shifts a single-column board by a single cell', () => {
+      expect(
+        shiftCell([[1], 
+                   [2]], 1)
+      ).toEqual([[2], 
+                 [1]]);
+    })
+
+    // it('returns a board with a single shift given a one-row board', () => {
+    //   expect(
+    //     shiftCell([[1, 2],
+    //                [3, 4]], 3)
+    //   ).toEqual([[1, 2],
+    //              [4, 3]])
+    // })
+  })
+
 });
