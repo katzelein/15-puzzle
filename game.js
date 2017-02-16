@@ -166,7 +166,8 @@
 
 // buildInnerBoard();
 
-let gameBoard = [], numbersGenerated = [];
+let gameBoard = []
+// numbersGenerated = [];
 // width = 2, height = 2
 
 const generateRandomBoard = (width, height) => {
@@ -187,6 +188,7 @@ const generateRandomBoard = (width, height) => {
 }
 
 const assignNumber = (width, height) => {
+  let numbersGenerated = [];
   let max = width * height;
   let num = Math.floor(Math.random() * max) + 1;
   while(numbersGenerated.length < max) {
@@ -194,10 +196,12 @@ const assignNumber = (width, height) => {
     if (numbersGenerated.indexOf(num) === -1) {
       numbersGenerated.push(num);
       console.log("the num is ", num)
-      return num;
+      console.log('numbersGenerated is', numbersGenerated)
+      // return num;
     }
     else return assignNumber();
   }
+  return numbersGenerated;
 }
 
 // const buildInnerBoard = () => {
